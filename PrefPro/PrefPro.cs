@@ -134,34 +134,34 @@ public unsafe class PrefPro : IDalamudPlugin
         if (!_configuration.Enabled)
             return _getStringHook.Original(raptureTextModule, text, unknown2, output);
                 
-        var decoderParams = ***(StdDeque<UnknownStruct>***) ((nuint) RaptureTextModule.Instance() + 0x40);
-
-        var raceParam = decoderParams[70];
-        var oldRace = raceParam.Value;
-        if (raceParam.Self == 0)
-            return _getStringHook.Original(raptureTextModule, text, unknown2, output);
-        var racePtr = (ulong*) raceParam.Self;
-        *racePtr = (ulong)_configuration.Race;
-
-        var genderParam = decoderParams[3];
-        var oldGender = genderParam.Value;
-        if (genderParam.Self == 0)
-            return _getStringHook.Original(raptureTextModule, text, unknown2, output);
-        var genderPtr = (ulong*)genderParam.Self;
-        *genderPtr = (ulong)_configuration.GetGender();
+        // var decoderParams = ***(StdDeque<UnknownStruct>***) ((nuint) RaptureTextModule.Instance() + 0x40);
+        //
+        // var raceParam = decoderParams[70];
+        // var oldRace = raceParam.Value;
+        // if (raceParam.Self == 0)
+        //     return _getStringHook.Original(raptureTextModule, text, unknown2, output);
+        // var racePtr = (ulong*) raceParam.Self;
+        // *racePtr = (ulong)_configuration.Race;
+        //
+        // var genderParam = decoderParams[3];
+        // var oldGender = genderParam.Value;
+        // if (genderParam.Self == 0)
+        //     return _getStringHook.Original(raptureTextModule, text, unknown2, output);
+        // var genderPtr = (ulong*)genderParam.Self;
+        // *genderPtr = (ulong)_configuration.GetGender();
             
         HandleName(ref text);
         var result = _getStringHook.Original(raptureTextModule, text, unknown2, output);
         // Marshal.FreeHGlobal((IntPtr)text);
 
-        raceParam = decoderParams[70];
-        racePtr = (ulong*) raceParam.Self;
-        *racePtr = oldRace;
+        // raceParam = decoderParams[70];
+        // racePtr = (ulong*) raceParam.Self;
+        // *racePtr = oldRace;
+        //
+        // genderParam = decoderParams[3];
+        // genderPtr = (ulong*)genderParam.Self;
+        // *genderPtr = oldGender;
 
-        genderParam = decoderParams[3];
-        genderPtr = (ulong*)genderParam.Self;
-        *genderPtr = oldGender;
-        
         return result;
     }
     
